@@ -3,7 +3,7 @@ import './App.css';
 import harvardArt from './data/harvardArt';
 import GalleryNavigation from './components/GalleryNavigation';
 import GalleryView from './components/GalleryView';
-import { Route } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 const records = harvardArt.records;
 function App() {
@@ -28,7 +28,22 @@ function App() {
         </a>
       </header>
       <div>
-        <Route path="/galleries/:galleryid"><GalleryView galleries={records}/></Route>
+      <Switch>
+      <Route path="/galleries/:galleryid">
+          <GalleryView galleries={records}/>
+      </Route>
+      <Route exact path="/">
+      <h2>Harvard Art Museum</h2>
+      <p>Look, but Don't Touch. Please select a Galler in the nav bar</p>
+      </Route>
+      <Route path="/error">
+      <h2>Page Not Found</h2>
+      </Route>
+      <Redirect to="/error"/>
+      </Switch>
+      </div>
+      <div>
+       
       </div>
     </div>
   );
