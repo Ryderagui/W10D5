@@ -1,16 +1,19 @@
-import { useParams } from "react-router-dom"
+import { useParams, Route } from "react-router-dom"
+import ArtImageTile from "../ArtImageTile";
 
 function GalleryView({galleries}){
     const params = useParams();
-    console.log(params, "params")
     let gallery;
     galleries.forEach(ele => {
         if (ele.galleryid === parseInt(params.galleryid)){
             gallery = ele
         }
     });
-    console.log(gallery, "console log gallery")
-    console.log(galleries, "galleries" )
+    <Route path={`/galleries/${params.galleryid}`}>
+        {gallery.objects.map((artworks)=>{
+        return <ArtImageTile art={artworks} galleryid={gallery.galleryid}/>
+        })}
+    </Route>
     return( 
     <div>
         <h1>Hello from {params.galleryid}</h1>
